@@ -1,6 +1,6 @@
 import csv
 
-with open('students.csv') as file:
+with open('students.csv', encoding='utf-8') as file:
     reader = csv.DictReader(file, delimiter=',')
     reader = list(reader)
 
@@ -11,7 +11,8 @@ with open('students.csv') as file:
     for i in range(len(reader)):  # Сортировка вставками
         current_person = reader[i]
         j = i
-        while j > 0 and int(reader[j - 1]['score']) < int(current_person['score']):
+        while j > 0 and int(reader[j - 1]['score']) < int(
+                current_person['score']):  # Пока у нашего нынешнего участника очков меньше, чем у предыдущего
             reader[j] = reader[j - 1]
             j -= 1
         reader[j] = current_person
@@ -21,9 +22,9 @@ with open('students.csv') as file:
     print('10 класс:')
 
     for i in range(len(reader)):
-        if '10' in reader[i]['class']:
+        if '10' in reader[i]['class']:  # Если 10 класс
             count_of_best_ten_grade += 1
             name_fi = reader[i]['Name'].split()
             print(f'{count_of_best_ten_grade} место: {name_fi[1][0]}. {name_fi[0]}')
-        if count_of_best_ten_grade == 3:
+        if count_of_best_ten_grade == 3:  # Если вывели трёх людей
             break
